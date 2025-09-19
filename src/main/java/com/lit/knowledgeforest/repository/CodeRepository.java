@@ -11,5 +11,8 @@ import com.lit.knowledgeforest.entity.primarykey.CodePK;
 @Repository
 public interface CodeRepository extends JpaRepository<CodeEntity, CodePK>{
 
-    List<CodeEntity> findAllByPkIcC(String icC);
+    List<CodeEntity> findByPkIcC(String icC);
+    CodeEntity findByPkIcVlAndIcVlcn(String icC, String icVlcn);
 }
+
+

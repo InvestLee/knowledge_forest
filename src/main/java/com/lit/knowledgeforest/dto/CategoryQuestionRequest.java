@@ -1,21 +1,18 @@
 package com.lit.knowledgeforest.dto;
 
-import java.math.BigDecimal;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Getter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SolvedStatisticResponse {
+public class CategoryQuestionRequest {
 
-    private String categoryName;
+    private String categoryId;
 
-    private BigDecimal solvedCount;
-
-    private BigDecimal totalPoint;
+    private String levelId;
 }

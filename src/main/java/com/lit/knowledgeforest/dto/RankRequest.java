@@ -11,11 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SolvedStatisticResponse {
+public class RankRequest {
 
-    private String categoryName;
+    private String cgp;
 
-    private BigDecimal solvedCount;
+    private String unit;
 
-    private BigDecimal totalPoint;
+    private String keyword;
+
+    private int page;
+
+    private int size;
 }

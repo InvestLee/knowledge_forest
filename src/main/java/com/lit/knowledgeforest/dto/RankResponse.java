@@ -17,5 +17,9 @@ public class RankResponse {
 
     private String eno;
 
+    private String empNm;
+
     private BigDecimal points;
+
+    private BigDecimal solvedCount;
 }

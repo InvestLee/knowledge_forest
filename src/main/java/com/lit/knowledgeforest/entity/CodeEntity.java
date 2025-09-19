@@ -27,3 +27,6 @@ public class CodeEntity extends BaseEntity{
 
     private String icVlcn;
 }
+
+
+

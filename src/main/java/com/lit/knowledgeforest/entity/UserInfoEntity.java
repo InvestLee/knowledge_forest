@@ -1,9 +1,11 @@
 package com.lit.knowledgeforest.entity;
 
-import com.lit.knowledgeforest.entity.primarykey.CategoryPK;
+import java.math.BigDecimal;
 
-import jakarta.persistence.EmbeddedId;
+import org.hibernate.annotations.DynamicUpdate;
+
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -12,14 +14,19 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 @Entity
-@Table(name = "qz_tb_category")
+@Table(name = "qz_tb_user_info")
 @Getter
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @AllArgsConstructor
+@DynamicUpdate
 @SuperBuilder
-public class CategoryEntity extends BaseEntity{
+public class UserInfoEntity extends BaseEntity{
 
-    @EmbeddedId
-    private CategoryPK pk;
+    @Id
+    private String eno;
+
+    private BigDecimal points;
+
+    private String profileImg;
 }

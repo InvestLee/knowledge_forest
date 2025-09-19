@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class HistoryPK implements Serializable{
+public class UserPK implements Serializable{
 
     String eno;
 
-    BigDecimal questionNo;
+    String vlYn;
 }

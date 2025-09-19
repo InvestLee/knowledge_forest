@@ -16,9 +16,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @EqualsAndHashCode
 @Builder
-public class CategoryPK implements Serializable{
+public class QuestionChoicePK implements Serializable{
 
     BigDecimal questionNo;
 
-    String categoryName;
+    BigDecimal choiceNo;
 }

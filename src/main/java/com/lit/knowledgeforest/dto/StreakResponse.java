@@ -1,6 +1,7 @@
 package com.lit.knowledgeforest.dto;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -11,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SolvedStatisticResponse {
+public class StreakResponse {
 
-    private String categoryName;
+    private String solveDate;
+
+    private String eno;
 
     private BigDecimal solvedCount;
-
-    private BigDecimal totalPoint;
 }

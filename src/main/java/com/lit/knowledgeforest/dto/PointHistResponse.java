@@ -11,11 +11,18 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class SolvedStatisticResponse {
+public class PointHistResponse {
+    private String eno;
 
-    private String categoryName;
+    private BigDecimal points;
 
-    private BigDecimal solvedCount;
+    private String memo;
 
-    private BigDecimal totalPoint;
+    private String fstCrtUsid;
+
+    private String fstCrtDtti;
+
+    private String ltChUsid;
+
+    private String ltChDtti;
 }

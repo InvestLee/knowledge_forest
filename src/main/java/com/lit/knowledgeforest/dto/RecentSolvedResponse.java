@@ -1,7 +1,9 @@
 package com.lit.knowledgeforest.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+
+import com.lit.knowledgeforest.code.Level;
+import com.lit.knowledgeforest.code.QuestionType;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,11 +22,26 @@ public class RecentSolvedResponse {
 
     private String correctYn;
 
-    protected String fstCrtUsid;
+    private String content;
 
-    protected LocalDateTime fstCrtDtti;
+    private String type;
 
-    protected String ltChUsid;
+    private String lev;
 
-    protected LocalDateTime ltChDtti;
+    private String categoryName;
+
+    private BigDecimal points;
+
+    private String fstCrtUsid;
+
+    private String fstCrtDtti;
+
+    private String ltChUsid;
+
+    private String ltChDtti;
+
+    public void toEnum(String lev, String type) {
+        this.lev = Level.getNameByCode(lev);
+        this.type = QuestionType.getNameByCode(type);
+    }
 }
