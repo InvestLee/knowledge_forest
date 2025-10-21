@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+    <link rel="stylesheet" th:href="@{/css/homepage.css}" />
+</head>
+
+<body>
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <div class="title">
+                            <h2>☆문제 승인☆</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+
+            <!-- ========== title-wrapper end ========== -->
+
+
+            <div class="container mt-2">
+                <div class="card">
+                    <div class="card-body text-start">
+                        <!-- 수정 및 승인 폼 -->
+                        <form id="approveForm">
+                            <input type="hidden" name="questionNo" th:value="${quiz.questionNo}" />
+
+
+                            <!-- 문제유형 -->
+                            <div class="mb-3">
+                                <label class="form-label">문제유형</label>
+                                <select class="form-select" name="typeCd" required>
+                                    <option value="1" th:selected="${quiz.typeCd == '1'}">단답형</option>
+                                    <option value="2" th:selected="${quiz.typeCd == '2'}">OX형</option>
+                                    <option value="2" th:selected="${quiz.typeCd == '3'}">객관식</option>
+                                </select>
+                            </div>
+
+                            <!-- 문제 -->
+                            <div class="mb-3">
+                                <label class="form-label">문제</label>
+                                <textarea class="form-control" name="content" rows="4" required
+                                          th:text="${quiz.content}"></textarea>
+                            </div>
+
+                            <!-- 정답 -->
+                            <div class="mb-3">
+                                <label class="form-label">정답</label>
+                                <textarea class="form-control" name="answer" rows="4" required
+                                          th:text="${quiz.answer}"></textarea>
+                            </div>
+
+                            <!-- 해설 -->
+                            <div class="mb-3">
+                                <label class="form-label">해설</label>
+                                <textarea class="form-control" name="description" rows="4"
+                                          th:text="${quiz.description}"></textarea>
+                            </div>
+
+                            <!-- 포인트 -->
+                            <div class="mb-3">
+                                <label class="form-label">포인트</label>
+                                <input type="text" class="form-control" name="points" th:value="${quiz.points}"></input>
+                            </div>
+
+                            <!-- 카테고리 -->
+                            <div class="mb-3">
+                                <label class="form-label">카테고리</label>
+                                <select class="form-select" name="categoryName" required>
+                                    <option value="네트워크" th:selected="${quiz.categoryName == '네트워크'}">네트워크</option>
+                                    <option value="운영체제" th:selected="${quiz.categoryName == '운영체제'}">운영체제</option>
+                                    <option value="알고리즘" th:selected="${quiz.categoryName == '알고리즘'}">알고리즘</option>
+                                    <option value="데이터베이스" th:selected="${quiz.categoryName == '데이터베이스'}">데이터베이스</option>
+                                    <option value="컴퓨터구조" th:selected="${quiz.categoryName == '컴퓨터구조'}">컴퓨터구조</option>
+                                    <option value="Java" th:selected="${quiz.categoryName == 'Java'}">Java</option>
+                                    <option value="IT운영팀" th:selected="${quiz.categoryName == 'IT운영팀'}">IT운영팀</option>
+                                </select>
+                            </div>
+
+                            <!-- 난이도 -->
+                            <div class="mb-3">
+                                <label class="form-label">난이도</label>
+                                <select class="form-select" name="levelCd" required>
+                                    <option value="1" th:selected="${quiz.levelCd == '1'}">쉬움</option>
+                                    <option value="2" th:selected="${quiz.levelCd == '2'}">중간</option>
+                                    <option value="3" th:selected="${quiz.levelCd == '3'}">어려움</option>
+                                </select>
+                            </div>
+                            <!-- 작성자 & 작성일자 -->
+                            <div class="mb-3">
+                                <label class="form-label">작성자</label>
+                                <input type="text" class="form-control" th:value="${quiz.fstCrtUsid}" readonly />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">작성일자</label>
+                                <input type="text" class="form-control" th:value="${#temporals.format(quiz.fstCrtDtti, 'yyyy-MM-dd HH:mm')}" readonly />
+                            </div>
+
+                            <!-- 승인 버튼 -->
+                            <div class="text-end">
+                                <button type="button" class="btn btn-success" onclick="submitApprove()">✅ 수정 후 승인</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- 반려 섹션 -->
+                    <div class="card-footer text-start">
+                        <form id="rejectForm">
+                            <input type="hidden" name="questionNo" th:value="${quiz.questionNo}" />
+
+                            <div class="mb-3">
+                                <label class="form-label">반려 사유</label>
+                                <textarea class="form-control" name="rejectCn" rows="2" placeholder="반려 사유를 입력하세요" required></textarea>
+                            </div>
+
+                            <div class="text-end">
+                                <button type="button" class="btn btn-danger" onclick="submitReject()">❌ 반려</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========== section end ========== -->
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/approve.js"></script>
+</body>
+</html>

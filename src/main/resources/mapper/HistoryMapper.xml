@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?page language="java" contentType="text/html; charset=UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lit.knowledgeforest.mapper.HistoryMapper">
+    <select id="getSolvedTodayQuizByEno" parameterType="java.util.HashMap" resultType="int">
+        SELECT COUNT(*)
+        FROM QZ_TB_HISTORY
+        WHERE 1=1
+        AND ENO = #{eno}
+        AND CORRECT_YN = 'Y'
+        AND FST_CRT_DTTI <![CDATA[<=]]> SYSDATE
+        AND FST_CRT_DTTI <![CDATA[>]]> SYSDATE - 1
+    </select>
+
+    <select id="findSolvedQuestions" resultType="com.lit.knowledgeforest.dto.RecentSolvedResponse">
+        SELECT
+        C.ENO,
+        C.QUESTION_NO,
+        C.CORRECT_YN,
+        DBMS_LOB.SUBSTR(C.CONTENT, 20, 1) AS CONTENT,
+        C.TYPE_CD AS TYPE,
+        C.LEVEL_CD AS LEV,
+        C.CATEGORY_NAME,
+        C.POINTS,
+        C.FST_CRT_USID,
+        TO_CHAR(C.FST_CRT_DTTI, 'YYYY-MM-DD HH24:MI:SS') AS FST_CRT_DTTI,
+        C.LT_CH_USID,
+        TO_CHAR(C.LT_CH_DTTI, 'YYYY-MM-DD HH24:MI:SS') AS LT_CH_DTTI
+        FROM (
+        SELECT
+        A.ENO,
+        A.QUESTION_NO,
+        A.CORRECT_YN,
+        B.CONTENT,
+        B.TYPE_CD,
+        B.LEVEL_CD,
+        B.CATEGORY_NAME,
+        B.POINTS,
+        A.FST_CRT_USID,
+        A.FST_CRT_DTTI,
+        A.LT_CH_USID,
+        A.LT_CH_DTTI,
+        ROW_NUMBER() OVER (ORDER BY A.LT_CH_DTTI DESC) AS rn
+        FROM QZ_TB_HISTORY A
+        , QZ_TB_QUESTION B
+        WHERE A.QUESTION_NO = B.QUESTION_NO
+        AND A.ENO = #{eno}
+        AND A.CORRECT_YN = #{correctYn}
+        <if test="category != null and category != '' ">
+            AND B.CATEGORY_NAME = #{category}
+        </if>
+        <if test="lev != null and lev != '' ">
+            AND B.LEVEL_CD = #{lev}
+        </if>
+        <if test="type != null and type != '' ">
+            AND B.TYPE_CD = #{type}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND B.CONTENT LIKE '%' || #{keyword} || '%'
+        </if>
+        ) C
+        WHERE C.rn BETWEEN #{startRow} AND #{endRow}
+        ORDER BY C.LT_CH_DTTI DESC
+    </select>
+
+
+    <select id="countSolvedQuestions" resultType="int">
+        SELECT count(1)
+        FROM QZ_TB_HISTORY A
+        , QZ_TB_QUESTION B
+        WHERE A.QUESTION_NO = B.QUESTION_NO
+        AND A.ENO = #{eno}
+        AND A.CORRECT_YN = #{correctYn}
+        <if test="category != null and category != '' ">
+            AND B.CATEGORY_NAME = #{category}
+        </if>
+        <if test="lev != null and lev != '' ">
+            AND B.LEVEL_CD = #{lev}
+        </if>
+        <if test="type != null and type != '' ">
+            AND B.TYPE_CD = #{type}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND B.CONTENT LIKE '%' || #{keyword} || '%'
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+</head>
+
+<body>
+<!-- ======== Preloader =========== -->
+<div id="preloader">
+    <div class="spinner"></div>
+</div>
+<!-- ======== Preloader =========== -->
+
+<!-- ======== sidebar-nav start =========== -->
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+<!-- ======== sidebar-nav end =========== -->
+
+
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+
+    <!-- ========== header start ========== -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- ========== header end ========== -->
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid" >
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <div class="container">
+                            <h2>원하는 난이도를 선택해주세요 🎈</h2>
+                            <div class="level-bar">
+                                <div th:each="level, iterStat : ${levels}" class="level-button-wrapper">
+                                    <form th:action="@{/quiz/category/level}" method="get">
+                                        <input type="hidden" name="categoryId" th:value="${categoryId}" />
+                                        <input type="hidden" name="levelId" th:value="${level.icVl}" />
+                                        <button type="submit"
+                                                class="level-button"
+                                                th:text="${level.icVlcn}"
+                                                th:style="|height:${(level.icVl)*3 }px; width:${100}px|">
+                                            LEVEL
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            <p th:if="${levels == null or #lists.isEmpty(levels)}">
+                                레벨 정보가 없습니다 😥
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="terms d-flex justify-content-center justify-content-md-end">
+                        <a href="#0" class="text-sm ml-15">모여봐요 지식의 숲</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

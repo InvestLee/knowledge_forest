@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?page language="java" contentType="text/html; charset=UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lit.knowledgeforest.mapper.UserInfoMapper">
+    <select id="findAllPointRank" resultType="com.lit.knowledgeforest.dto.RankResponse">
+        SELECT MAX(A.rank) as rank
+        , A.eno as eno
+        , A.EMP_NM as empNm
+        , A.CGP as cgp
+        , A.UNIT_BIZ as unitBiz
+        , MAX(A.points) as points
+        , COUNT(B.eno) as solvedCount
+        FROM (
+
+        SELECT Z.RANK
+        , Z.ENO
+        , Z.EMP_NM
+        , Z.CGP
+        , Z.UNIT_BIZ
+        , Z.POINTS
+        , ROW_NUMBER() OVER (ORDER BY NVL(Z.POINTS,0) DESC, Z.ENO ASC) AS rn
+        FROM (
+        SELECT RANK() OVER (ORDER BY NVL(X.POINTS,0) DESC) AS rank
+        , Y.ENO
+        , Y.EMP_NM
+        , Y.CGP
+        , Y.UNIT_BIZ
+        , NVL(X.POINTS,0) AS POINTS
+        FROM QZ_TB_USER_INFO X
+        , MBR_TB_INF Y
+        WHERE X.ENO(+) = Y.ENO
+        AND Y.VL_YN = 'Y'
+        ) Z
+        WHERE 1=1
+        <if test="unit != null and unit != '' ">
+            AND Z.UNIT_BIZ = #{unit}
+        </if>
+        <if test="cgp != null and cgp != '' ">
+            AND Z.CGP = #{cgp}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND Z.EMP_NM LIKE '%' || #{keyword} || '%'
+        </if>
+        ) A
+        , (SELECT ENO FROM QZ_TB_HISTORY WHERE CORRECT_YN = #{correctYn}) B
+        WHERE A.ENO = B.ENO(+)
+        AND A.rn BETWEEN #{startRow} AND #{endRow}
+        GROUP BY A.eno, A.EMP_NM, A.CGP, A.UNIT_BIZ
+        ORDER BY rank, eno
+    </select>
+
+    <select id="countAllPointRank" resultType="int">
+        SELECT count(1)
+        FROM MBR_TB_INF A
+        WHERE A.VL_YN = 'Y'
+        <if test="unit != null and unit != '' ">
+            AND A.UNIT_BIZ = #{unit}
+        </if>
+        <if test="cgp != null and cgp != '' ">
+            AND A.CGP = #{cgp}
+        </if>
+        <if test="keyword != null and keyword != '' ">
+            AND A.EMP_NM LIKE '%' || #{keyword} || '%'
+        </if>
+    </select>
+
+    <select id="findTopPointRank" parameterType="java.util.HashMap" resultType="com.lit.knowledgeforest.dto.RankResponse">
+        SELECT MAX(A.rank) as rank
+        , A.eno as eno
+        , MAX(A.points) as points
+        , COUNT(B.eno) as solvedCount
+        FROM (SELECT RANK() OVER (ORDER BY NVL(POINTS,0) DESC) AS rank
+        , ENO
+        , POINTS
+        , ROW_NUMBER() OVER (ORDER BY NVL(POINTS,0) DESC, ENO ASC) AS rn
+        FROM QZ_TB_USER_INFO
+        ) A
+        , QZ_TB_HISTORY B
+        WHERE A.ENO = B.ENO
+        AND B.CORRECT_YN = #{correctYn}
+        AND rank <![CDATA[<=]]> #{rank}
+        GROUP BY A.eno
+        ORDER BY rank, eno
+    </select>
+
+    <select id="findUserInfoByEno" parameterType="String" resultType="java.util.HashMap">
+        SELECT *
+        FROM QZ_TB_USER_INFO
+        WHERE ENO = #{eno}
+    </select>
+
+    <select id="findHeaderInfoByEno" parameterType="String" resultType="java.util.HashMap">
+        SELECT A.ENO
+        , A.POINTS
+        , B.EMP_NM
+        FROM QZ_TB_USER_INFO A
+        , MBR_TB_INF B
+        WHERE A.ENO = B.ENO
+        AND A.ENO = #{eno}
+    </select>
+
+</mapper>

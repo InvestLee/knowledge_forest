@@ -1,0 +1,128 @@
+body {
+  background-color: #f0fdf4; /* 연한 연두색 계열 */
+  font-family: 'Noto Sans KR', sans-serif;
+}
+
+/* 전체 컨테이너 */
+.container_rangking {
+  width: 1200px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  border: 2px dashed #a5d6a7; /* 파스텔 연두 테두리 */
+}
+
+/* 제목 스타일 */
+.container h1 {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 32px;
+  color: #2e7d32;
+  font-weight: 600;
+}
+
+/* 테이블 */
+.ranking-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 12px;
+}
+
+.ranking-table thead th {
+  background-color: #c8e6c9;
+  color: #2e7d32;
+  font-size: 16px;
+  padding: 12px 16px;
+  border-radius: 10px 10px 0 0;
+}
+
+.ranking-table td {
+  background-color: #f1f8e9;
+  padding: 14px 18px;
+  text-align: center;
+  font-size: 15px;
+  color: #444;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+
+/* hover 효과 */
+.ranking-table tbody tr:hover td {
+  background-color: #e6f4ea;
+  transition: background-color 0.2s ease;
+}
+
+/* 페이징 */
+.pagination-wrapper {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.pagination a {
+  display: inline-block;
+  margin: 0 6px;
+  padding: 8px 14px;
+  border: 1px solid #a5d6a7;
+  border-radius: 12px;
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease;
+}
+
+.pagination a:hover {
+  background-color: #c8e6c9;
+}
+
+.pagination a.active {
+  background-color: #66bb6a;
+  color: #fff;
+  font-weight: bold;
+}
+
+.search-form {
+  margin: 20px 0;
+  background-color: #f4f9f4;
+  border: 2px solid #c4e3cb;
+  border-radius: 12px;
+  padding: 15px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: left;
+}
+
+.search-group select,
+.search-group input[type="text"] {
+  padding: 8px 12px;
+  border: 1px solid #b2d8b2;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #ffffff;
+  color: #333;
+  min-width: 150px;
+}
+
+.search-group button {
+  padding: 8px 16px;
+  background-color: #90c995;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.search-group button:hover {
+  background-color: #76b281;
+}

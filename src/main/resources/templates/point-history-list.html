@@ -1,0 +1,62 @@
+<div class="section">
+    <h3 class="mb-3">포인트 이력조회</h3>
+    <div class="recent-problems">
+        <table class="recent-table">
+            <thead >
+            <tr>
+                <th>날짜</th>
+                <th>포인트</th>
+                <th>내용</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${pointHistory.content}" class="quiz-row">
+                <td th:text="${#temporals.format(item.fstCrtDtti, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                <td th:text="${item.points}"></td>
+                <td th:text="${item.memo}"></td>
+            </tr>
+            <tr th:if="${pointHistory.content.size() == 0}">
+                <td colspan="3" class="text-center">포인트 이력이 없습니다.</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- Ajax 페이징 처리 -->
+<nav th:if="${pointHistory.totalPages > 1}" aria-label="페이지네이션">
+    <ul class="pagination justify-content-center mt-3">
+
+        <!-- 이전 버튼 -->
+        <li class="page-item" th:if="${pointHistory.number >= 5}">
+            <a class="page-link point-history-page-link"
+               href="#"
+               th:data-page="${(pointHistory.number/5-1)*5}"
+               aria-label="이전">
+                <span aria-hidden="true">&laquo;</span>
+            </a>
+        </li>
+
+        <!-- 페이지 번호 -->
+        <li class="page-item"
+            th:each="i : ${#numbers.sequence((pointHistory.number / 5) * 5, T(java.lang.Math).min(((pointHistory.number / 5) * 5 + 4), pointHistory.totalPages - 1))}"
+            th:classappend="${i == pointHistory.number} ? 'active'">
+            <a class="page-link point-history-page-link"
+               href="#"
+               th:data-page="${i}"
+               th:text="${i + 1}">
+            </a>
+        </li>
+
+        <!-- 다음 버튼 -->
+        <li class="page-item" th:if="${((pointHistory.number / 5 + 1) * 5) < pointHistory.totalPages}">
+            <a class="page-link point-history-page-link"
+               href="#"
+               th:data-page="${(pointHistory.number/5+1)*5}"
+               aria-label="다음">
+                <span aria-hidden="true">&raquo;</span>
+            </a>
+        </li>
+    </ul>
+</nav>

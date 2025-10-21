@@ -54,6 +54,7 @@ public class LoginService {
         } catch (Exception ex) {
             throw new Exception(ex.getMessage(), ex);
         }
+        System.out.println(userRepository.findAll());
         UserEntity userEntity = userRepository.findByPkEno(username)
                 .orElseThrow(() -> new EntityNotFoundException("유저 정보가 없습니다."));
 

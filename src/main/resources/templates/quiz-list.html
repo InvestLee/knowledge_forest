@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>Sample</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+
+</head>
+
+<body>
+<!-- ======== Preloader =========== -->
+<div id="preloader">
+    <div class="spinner"></div>
+</div>
+<!-- ======== Preloader =========== -->
+<!-- ======== sidebar-nav start =========== -->
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+<!-- ======== sidebar-nav end =========== -->
+
+
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+    <!-- ========== header start ========== -->
+    <div th:replace="fragments/header :: header"></div>
+    <!-- ========== header end ========== -->
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid" >
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-style mb-30">
+                        <h2></h2>
+
+
+                        <div class="quiz-container">
+                            <h2 class="quiz-title">🍃 퀴즈를 풀어보세요!</h2>
+
+                            <div th:if="${#lists.isEmpty(quizzes)}">
+                                <p class="no-question-msg">❗ 더이상 풀 문제가 없습니다.</p>
+                                <div class="back-button-center-wrapper">
+                                    <a th:href="@{/quiz}" class="back-button-center">목록으로 돌아가기</a>
+                                </div>
+                            </div>
+
+                            <div th:if="${not #lists.isEmpty(quizzes)}">
+                                <div th:with="quiz=${quizzes[index]}">
+
+                                    <!-- 정답 선택 화면 -->
+                                    <div th:if="${isCorrect == null}">
+                                        <form method="post" th:action="@{/quiz/category/level/answer}" class="quiz-form">
+                                            <input type="hidden" name="categoryId" th:value="${categoryId}" />
+                                            <input type="hidden" name="levelId" th:value="${levelId}" />
+                                            <input type="hidden" name="index" th:value="${index}" />
+
+                                            <!-- 단답형 입력 -->
+                                            <div th:if="${quiz.typeCd == '1'}" class="short-answer-wrapper">
+                                                <p class="question-text" th:text="${quiz.content}">문제 내용</p>
+                                                <input type="text" name="userAnswer" placeholder="정답을 입력하세요" class="short-answer-input" required />
+                                                <button type="submit" class="submit-button">제출</button>
+                                            </div>
+
+                                            <!-- OX 선택 -->
+                                            <div th:if="${quiz.typeCd == '2'}" class="ox-button-wrapper">
+                                                <p class="question-text" th:text="${quiz.content}">문제 내용</p>
+                                                <button type="submit" name="userAnswer" value="O" class="answer-button correct">O</button>
+                                                <button type="submit" name="userAnswer" value="X" class="answer-button wrong">X</button>
+                                            </div>
+
+                                            <!-- 객관식 선택 -->
+                                            <div th:if="${quiz.typeCd == '3'}" class="short-answer-wrapper">
+                                                <p class="question-text" th:text="${quiz.content}">문제 내용</p>
+                                                <div class="short-answer-input">
+                                                    <button type="submit" name="userAnswer" th:value="${item.choiceNo}" class="choice-answer" th:each="item : ${choiceMap[quiz.questionNo]}">
+                                                        [[${item.choiceNo}]]. [[${item.content}]]
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+
+                                    <!-- 정답 결과 화면 -->
+                                    <div th:if="${isCorrect != null}">
+                                        <!-- 정답 설명 노출 -->
+                                        <div th:if="${isCorrect}" class="quiz-description">
+                                            <p th:text="'📘 정답 설명: ' + ${quiz.description}"></p>
+                                        </div>
+
+                                        <p th:text="${isCorrect} ? '🎉 정답입니다!' : '❌ 오답입니다. 다시 풀어보세요!'" class="result-message"></p>
+
+                                        <!-- 정답일 경우 -->
+                                        <div th:if="${isCorrect}">
+                                            <div class="result-buttons">
+                                                <form method="get" th:action="@{/quiz/category/level}">
+                                                    <input type="hidden" name="categoryId" th:value="${categoryId}" />
+                                                    <input type="hidden" name="levelId" th:value="${levelId}" />
+                                                    <input type="hidden" name="index" th:value="${index}" />
+                                                    <button class="next-button" th:if="${hasNext}">다음 문제 풀기</button>
+                                                    <a th:href="@{/quiz}" class="back-button">목록으로 돌아가기</a>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <!-- 오답일 경우 -->
+                                        <div th:if="${!isCorrect}">
+                                            <div class="retry-button-wrapper">
+                                                <form method="get" th:action="@{/quiz/category/level}">
+                                                    <input type="hidden" name="categoryId" th:value="${categoryId}" />
+                                                    <input type="hidden" name="levelId" th:value="${levelId}" />
+                                                    <input type="hidden" name="index" th:value="${index}" />
+                                                    <button class="retry-button">다시 풀기</button>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+
+
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="terms d-flex justify-content-center justify-content-md-end">
+                        <a href="#0" class="text-sm ml-15">모여봐요 지식의 숲</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+</body>
+</html>

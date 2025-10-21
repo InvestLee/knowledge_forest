@@ -1,0 +1,157 @@
+@font-face {
+  font-family: 'Binggrae';
+  src: url('/fonts/BinggraeTaom-Bold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* === �⺻ ���� === */
+html, body {
+  font-family: 'Binggrae', sans-serif !important;
+  background-color: #f6fbf4; /* �ε巯�� ��Ʈ �� */
+  color: #4a4a4a; /* ��޽����� ��ī ȸ�� */
+}
+
+.login-page {
+    margin: 0;
+    padding: 0;
+    font-family: "Arial", "Apple SD Gothic Neo", sans-serif;
+    background: linear-gradient(to bottom, #d6f0d2, #f7f7d4);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* �α��� �ڽ� */
+.login-page .login-container {
+    background-color: #fffef6;
+    border: 3px solid #a1c99a;
+    border-radius: 20px;
+    padding: 40px 30px;
+    width: 320px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    animation: fadeIn 0.8s ease-in-out;
+}
+
+/* Ÿ��Ʋ */
+.login-page .login-title {
+    font-size: 24px;
+    color: #4d7031;
+    margin-bottom: 30px;
+}
+
+/* �α��� �� */
+.login-page .login-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* �Է�â ���� */
+.login-page .login-form input[type="text"],
+.login-page .login-form input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 2px solid #cce2b8;
+    border-radius: 10px;
+    background-color: #f9fff3;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+/* ��Ŀ�� �� */
+.login-page .login-form input[type="text"]:focus,
+.login-page .login-form input[type="password"]:focus {
+    outline: none;
+    border-color: #84b77c;
+    background-color: #ffffff;
+}
+
+/* ��ư */
+.login-page #login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #84c78e;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 0 #5e9f63;
+}
+
+.login-page #login-button:hover {
+    background-color: #6bb879;
+    transform: translateY(-2px);
+}
+
+.login-page #login-button:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+/* �ִϸ��̼� */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.login-guide {
+  margin: 50px auto 0;   /* 로그인 박스와 간격 */
+  padding: 16px 18px;
+  max-width: 800px;      /* 로그인 박스보다 넓게 */
+  background: #f9f9f3;
+  border: 1px solid #d9eccc;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  color: #444;
+  text-align: center;
+}
+
+/* 안내 타이틀 */
+.login-guide .guide-title {
+  font-size: 1rem;
+  margin-bottom: 14px;
+  color: #2f5130;
+}
+
+/* 카드 컨테이너 (가로 배치) */
+.guide-items {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* 개별 카드 */
+.guide-item {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #dce7da;
+  border-radius: 8px;
+  padding: 12px 10px;
+  box-shadow: 1px 1px 4px rgba(0,0,0,0.05);
+  min-width: 240px;
+}
+
+/* 카드 제목 */
+.guide-item h4 {
+  font-size: 0.9rem;
+  margin-bottom: 6px;
+  color: #2f5130;
+}
+
+/* 카드 설명 */
+.guide-item p {
+  font-size: 0.75rem;
+  color: #666;
+}

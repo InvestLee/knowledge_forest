@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/login.css" />
+</head>
+
+<body class="login-page">
+<div class="login-container">
+    <h1 class="login-title">🌳 지식의 숲 🌳</h1>
+
+    <form name="securedLoginForm" id="securedLoginForm" class="login-form" method="post" action="login">
+        <input type="text"
+               name="imsi_id"
+               id="imsi_id"
+               maxlength="15"
+               placeholder="아이디"
+               oninput="this.value = this.value.toUpperCase()"
+               th:value="${eno}" />
+
+        <input type="password"
+               name="imsi_password"
+               id="imsi_password"
+               maxlength="15"
+               placeholder="비밀번호"
+               th:value="${pwd}" />
+
+        <input type="hidden" id="rsaPublicKeyModulus" th:value="${publicKeyModulus}" />
+        <input type="hidden" id="rsaPublicKeyExponent" th:value="${publicKeyExponent}" />
+        <input type="hidden" name="eno" id="eno" />
+        <input type="hidden" name="pwd" id="pwd" />
+        <button type="submit" id="login-button" onclick="validateEncryptedForm();">🌱 로그인</button>
+    </form>
+
+</div>
+<!-- ========== 사용 설명 Section (로그인 박스 아래) ========== -->
+<div class="login-guide">
+    <h3 class="guide-title">📖 이용 안내</h3>
+    <div class="guide-items">
+        <div class="guide-item">
+            <h4>1️⃣ 오늘의 퀴즈</h4>
+            <p>매일 업데이트되는 랜덤 퀴즈를 풀며<br> 지식을 쌓아가세요!</p>
+        </div>
+        <div class="guide-item">
+            <h4>2️⃣ 랭킹 시스템</h4>
+            <p>퀴즈를 풀고 포인트를 획득하면<br>  랭킹에 올라갈 수 있어요.</p>
+        </div>
+        <div class="guide-item">
+            <h4>3️⃣ 지식 공유</h4>
+            <p>직접 문제를 등록하고 열람할 수 있어요.</p>
+        </div>
+    </div>
+</div>
+
+
+
+<!-- ========= All Javascript files linkup ======== -->
+<script src="/js/main.js"></script>
+<script src="/js/login.js"></script>
+<script src="/js/rsa/jsbn.js"></script>
+<script src="/js/rsa/rsa.js"></script>
+<script src="/js/rsa/prng4.js"></script>
+<script src="/js/rsa/rng.js"></script>
+<script src="/js/login.js"></script>
+</body>
+</html>

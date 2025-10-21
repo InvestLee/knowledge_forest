@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+    <link rel="stylesheet" th:href="@{/css/homepage.css}" />
+</head>
+
+<body>
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper start ========== -->
+            <div class="title-wrapper pt-30">
+                <div class="row align-items-center">
+                    <div class="col-md-2">
+                        <div class="title">
+                            <h2>☆퀴즈 등록☆</h2>
+                        </div>
+                    </div>
+                    <!-- end col -->
+                </div>
+                <!-- end row -->
+            </div>
+
+            <!-- ========== title-wrapper end ========== -->
+
+            <div class="container mt-2">
+                <div class="card">
+                    <div class="card-body text-start">
+                        <!-- 수정 및 승인 폼 -->
+                        <form id="newQuizForm">
+
+                            <!-- 문제유형 -->
+                            <div class="mb-3">
+                                <label class="form-label">문제유형</label>
+                                <select class="form-select" name="typeCd" required>
+                                    <option value="">-선택-</option>
+                                    <option th:each="type : ${typeCdList}"
+                                            th:value="${type.code}"
+                                            th:text="${type.name}">문제유형</option>
+                                </select>
+                            </div>
+
+                            <!-- 문제 -->
+                            <div class="mb-3">
+                                <label class="form-label">문제</label>
+                                <textarea class="form-control" name="content" rows="4" required></textarea>
+                            </div>
+
+                            <!-- 정답 -->
+                            <div class="mb-3" id="answerContainer">
+                                <label class="form-label">정답</label>
+                                <textarea class="form-control" name="answer" rows="4" required></textarea>
+                            </div>
+
+                            <!-- 해설 -->
+                            <div class="mb-3">
+                                <label class="form-label">해설</label>
+                                <textarea class="form-control" name="description" rows="4" ></textarea>
+                            </div>
+
+                            <div class="row mb-3">
+                                <!-- 포인트 -->
+                                <div class="col-md-4">
+                                    <label class="form-label">포인트</label>
+                                    <select class="form-select" id="points" name="points" required>
+                                        <option value="">-선택-</option>
+                                        <option th:each="item : ${pointList}"
+                                                th:value="${item.value}"
+                                                th:text="${item.value}">점수</option>
+                                    </select>
+                                </div>
+
+                                <!-- 카테고리 -->
+                                <div class="col-md-4">
+                                    <label class="form-label">카테고리</label>
+                                    <select class="form-select" id="categoryName" name="categoryName" required>
+                                        <option value="">-선택-</option>
+                                        <option th:each="item : ${categoryList}"
+                                                th:value="${item.name}"
+                                                th:text="${item.name}">카테고리</option>
+                                    </select>
+                                </div>
+
+                                <!-- 난이도 -->
+                                <div class="col-md-4">
+                                    <label class="form-label">난이도</label>
+                                    <select class="form-select" id="levelCd" name="levelCd" required>
+                                        <option value="">-선택-</option>
+                                        <option th:each="item : ${levelList}"
+                                                th:value="${item.code}"
+                                                th:text="${item.name}">난이도</option>
+                                    </select>
+                                </div>
+
+                            </div>
+                            <div class="text-end">
+                                <button id = "submitBtn" type="button" class="btn btn-primary">등록</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- ========== section end ========== -->
+
+
+    <div th:replace="fragments/footer :: footer"></div>
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/new-quiz.js"></script>
+</body>
+</html>

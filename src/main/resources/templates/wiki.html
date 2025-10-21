@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+    <link rel="stylesheet" href="/css/wiki.css" />
+    <link rel="stylesheet" href="/css/quiz.css" />
+</head>
+
+<body>
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container">
+
+            <!-- ✅ 카테고리 선택 드롭다운 -->
+            <div class="category-tabs mt-3 mb-3">
+                <button type="button" class="btn category-btn active" data-category="">전체</button>
+                <button type="button" class="btn category-btn" data-category="네트워크">네트워크</button>
+                <button type="button" class="btn category-btn" data-category="운영체제">운영체제</button>
+                <button type="button" class="btn category-btn" data-category="알고리즘">알고리즘</button>
+                <button type="button" class="btn category-btn" data-category="데이터베이스">데이터베이스</button>
+                <button type="button" class="btn category-btn" data-category="컴퓨터구조">컴퓨터구조</button>
+                <button type="button" class="btn category-btn" data-category="Java">Java</button>
+                <button type="button" class="btn category-btn" data-category="IT운영팀">IT운영팀</button>
+            </div>
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" id="searchKeyword" placeholder="검색어를 입력하세요." />
+                <button class="btn btn-primary" type="button" id="searchBtn">검색</button>
+            </div>
+
+            <!-- ✅ 문제 리스트가 Ajax로 로딩될 영역 -->
+            <div id="wiki-list-section" ></div>
+
+        </div>
+    </section>
+    <!-- 문제 상세 모달 -->
+    <div class="modal fade" id="quizDetailModal" tabindex="-1" aria-labelledby="quizDetailLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="quizDetailLabel">문제 상세</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="닫기"></button>
+                </div>
+                <div class="modal-body" id="quiz-detail-body">
+                    <!-- 여기에 Ajax로 로딩된 내용이 들어갑니다 -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ========== section end ========== -->
+
+    <div th:replace="fragments/footer :: footer"></div>
+</main>
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+    <script src="/js/wiki.js"></script>
+</body>
+</html>

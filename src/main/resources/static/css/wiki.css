@@ -1,0 +1,51 @@
+ .category-btn {
+    background-color: transparent;
+    border: none;
+    color: #2e7d32; /* 진한 초록색 */
+    font-weight: 600;
+    font-size: 18px;
+    padding: 8px 16px;
+    margin-right: 6px;
+    border-radius: 6px;
+    transition: background-color 0.2s, color 0.2s;
+  }
+
+  .category-btn:hover {
+    background-color: rgba(46, 125, 50, 0.1); /* 살짝 연한 초록 배경 */
+    cursor: pointer;
+  }
+
+  .category-btn.active {
+    background-color: #2e7d32; /* 진한 초록 */
+    color: #ffffff;
+  }
+
+   .fixed-table {
+    table-layout: fixed;
+    width: 100%;
+  }
+
+  .wiki-div {
+  background-color: #fefef9;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid #e3edd8;
+}
+.wiki-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #405538;
+}
+.wiki-table thead {
+  background-color: #f0f5ea;
+}
+.wiki-table th, .wiki-table td {
+  padding: 15px;
+  text-align: center;
+  border-bottom: 1px solid #dce7ce;
+}
+.wiki-table th {
+  color: #5c6f49;
+  font-weight: 600;
+}

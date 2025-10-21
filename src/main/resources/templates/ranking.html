@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>전체 랭킹</title>
+    <link rel="stylesheet" th:href="@{/css/ranking.css}" />
+    <link rel="stylesheet" th:href="@{/css/animal.css}" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css"
+          type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+</head>
+<body class="bg-animal-crossing">
+<!-- ======== Preloader =========== -->
+<div id="preloader">
+    <div class="spinner"></div>
+</div>
+<!-- ======== Preloader =========== -->
+
+
+
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+    <div th:replace="fragments/header :: header"></div>
+
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="mypage-grid">
+                    <div class="card-style mb-30">
+                        <h2></h2>
+                        <div class="container_rangking">
+                            <h1>전체 랭킹</h1>
+                            <div class="search-form">
+                                <div class="search-group">
+                                    <select id="cgp">
+                                        <option value="">담당</option>
+                                        <option th:each="cgp : ${cgpOptions}"
+                                                th:value="${cgp.icVlcn}" th:text="${cgp.icVlcn}"></option>
+                                    </select> <select id="unit">
+                                    <option value="">단위업무</option>
+                                    <option th:each="unit : ${unitOptions}"
+                                            th:value="${unit.icVlcn}" th:text="${unit.icVlcn}"></option>
+                                </select> <input type="text" id="nameKeyword" placeholder="이름 검색" />
+
+                                    <button id="searchBtn" type="button">검색</button>
+                                </div>
+                            </div>
+
+
+                            <table class="ranking-table">
+                                <thead>
+                                <tr>
+                                    <th>순위</th>
+                                    <th>이름</th>
+                                    <th>해결 문제 수</th>
+                                    <th>포인트</th>
+                                </tr>
+                                </thead>
+                                <tbody id="rankingBody">
+                                <!-- JS로 채움 -->
+                                </tbody>
+                            </table>
+                            <div class="pagination-wrapper">
+                                <div class="pagination" id="pagination" style="justify-content: center"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div
+                            class="terms d-flex justify-content-center justify-content-md-end">
+                        <a href="#0" class="text-sm ml-15">모여봐요 지식의 숲</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script th:src="@{/js/ranking.js}" defer></script>
+</body>
+</html>

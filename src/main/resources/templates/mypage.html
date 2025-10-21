@@ -1,0 +1,182 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>MyPage</title>
+    <link rel="stylesheet" th:href="@{/css/mypage.css}" />
+    <link rel="stylesheet" th:href="@{/css/animal.css}" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+</head>
+
+
+<script id="categoryData" type="application/json" th:inline="javascript">
+    [[${categoryStats}]]
+</script>
+<script id="streakData" type="application/json" th:inline="javascript">
+    [[${streaks}]]
+</script>
+
+
+<body class="bg-animal-crossing">
+
+<!-- ======== Preloader =========== -->
+<div id="preloader">
+    <div class="spinner"></div>
+</div>
+<!-- ======== Preloader =========== -->
+
+
+
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+    <div th:replace="fragments/header :: header"></div>
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="mypage-grid">
+                    <div class="card-style mb-30">
+
+                        <div class="mypage-container">
+                            <div class="profile-header">
+                                <div class="avatar">🐥</div>
+                                <div class="profile-info">
+                                    <h1 th:text="${user.name}">이지형</h1>
+                                    <div class="profile-extra">
+                                        <span>🆔 사번: <span th:text="${user.eno}">LD10630</span></span>
+                                        <span>🌟 포인트: <span th:text="${user.point}">4280</span></span>
+                                        <span>💼 담당: <span th:text="${user.cgp}">채널</span></span>
+                                        <span th:onclick="|location.href='@{/rank}'|" style="cursor:pointer;">🏆 랭킹: <span th:text="${user.rank}">12위</span></span>
+                                        <span>📝 업무: <span th:text="${user.unitBiz}">BIZ_영업채널</span></span>
+                                    </div>
+                                </div>
+                            </div><div class="section">
+                            <h2>📊 카테고리별 해결 분포</h2>
+                            <div class="chart-section">
+                                <canvas id="categoryPieChart" width="320" height="320"></canvas>
+                                <table class="category-table" id="categoryLegendTable">
+                                    <thead>
+                                    <tr>
+                                        <th>색상</th>
+                                        <th>카테고리</th>
+                                        <th>문제 수</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                            <div class="section">
+                                <h2>📘 최근 해결한 문제</h2>
+                                <div class="recent-problems" th:onclick="|location.href='@{/mypage/solved}'|" style="cursor:pointer;">
+                                    <table class="recent-table">
+                                        <thead>
+                                        <tr>
+                                            <th>문제 번호</th>
+                                            <th>문제 내용</th>
+                                            <th>카테고리</th>
+                                            <th>Type</th>
+                                            <th>난이도</th>
+                                            <th>포인트</th>
+                                            <th>해결 일자</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p : ${recentSolved}">
+                                            <td th:text="${p.questionNo}">1</td>
+                                            <td th:text="${p.content}">1</td>
+                                            <td th:text="${p.categoryName}">네트워크</td>
+                                            <td th:text="${p.type}">1</td>
+                                            <td th:text="${p.lev}">1</td>
+                                            <td th:text="${p.Points}">10</td>
+                                            <td th:text="${p.ltChDtti}">20250701</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+
+                            <div class="section">
+                                <h2>🌟 포인트 이력조회</h2>
+
+                                <div class="point-history" th:onclick="|location.href='@{mypage/point-history}'|" style="cursor:pointer;">
+                                    <table class="point-table">
+                                        <thead>
+                                        <tr>
+                                            <th>날짜</th>
+                                            <th>포인트</th>
+                                            <th>내용</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="p : ${pointHist}">
+                                            <td th:text="${p.ltChDtti}">20250701</td>
+                                            <td th:text="${p.Points}">10</td>
+                                            <td th:text="${p.memo}">내용</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <div class="section streak-section">
+                                <h2>🌱 스트릭 기록</h2>
+                                <div class="streak-grid" id="streakGrid"></div>
+                            </div>
+
+                        </div>
+
+
+
+
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="terms d-flex justify-content-center justify-content-md-end">
+                        <a href="#0" class="text-sm ml-15">모여봐요 지식의 숲</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script th:src="@{/js/mypage.js}"></script>
+    <script src="/js/main.js"></script>
+
+
+
+</body>
+</html>

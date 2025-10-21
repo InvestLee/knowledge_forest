@@ -1,5 +1,6 @@
 package com.lit.knowledgeforest.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.lit.knowledgeforest.code.CategoryName;
+import com.lit.knowledgeforest.code.Level;
 import com.lit.knowledgeforest.dto.CategoryLevelRequest;
 import com.lit.knowledgeforest.dto.CategoryQuestionRequest;
 import com.lit.knowledgeforest.dto.Code;
@@ -48,7 +51,14 @@ public class QuestionController {
         //HomePageResponse result = homePageService.getHomePageInfo(loginResponse.getEno());
         UserResponse userResponse = myPageService.findUser(loginResponse.getEno());
 
-        List<Code> categories = questionService.getAllQuizCategory();
+        List<Code> categories =  new ArrayList<>();
+        for (CategoryName category : CategoryName.values()) {
+            Code code = Code.builder()
+                    .icVl(category.name())
+                    .icVlcn(category.getName())
+                    .build();
+            categories.add(code);
+        };
 
         //model.addAttribute("homePageResponse", result);
         model.addAttribute("user", userResponse);
@@ -68,7 +78,14 @@ public class QuestionController {
         //HomePageResponse result = homePageService.getHomePageInfo(loginResponse.getEno());
         UserResponse userResponse = myPageService.findUser(loginResponse.getEno());
 
-        List<Code> levels = questionService.getAllQuizLevel();
+        List<Code> levels = new ArrayList<>();
+        for (Level level : Level.values()) {
+            Code code = Code.builder()
+                    .icVl(level.name())
+                    .icVlcn(level.getName())
+                    .build();
+            levels.add(code);
+        };
 
         // model.addAttribute("homePageResponse", result);
         model.addAttribute("user", userResponse);

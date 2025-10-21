@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+;
+<head>
+    <meta charset="UTF-8">
+    <title>해결한 문제 목록</title>
+
+    <link rel="stylesheet" th:href="@{/css/solvedList.css}" />
+    <link rel="stylesheet" th:href="@{/css/animal.css}" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css"
+          type="text/css" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+</head>
+
+<body class="bg-animal-crossing" th:attr="data-eno=${eno}">
+<!-- ======== Preloader =========== -->
+<div id="preloader">
+    <div class="spinner"></div>
+</div>
+<!-- ======== Preloader =========== -->
+
+
+
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+    <div th:replace="fragments/header :: header"></div>
+
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <!-- ========== title-wrapper end ========== -->
+            <div class="row">
+                <div class="mypage-grid">
+                    <div class="card-style mb-30">
+                        <div class="solvedlist-container">
+                            <h1>해결한 문제 목록</h1>
+
+                            <div class="solved-table-wrapper">
+                                <div class="search-form">
+                                    <div class="search-group">
+                                        <select id="category">
+                                            <option value="">카테고리 전체</option>
+                                            <option th:each="cat : ${categoryOptions}"
+                                                    th:value="${cat.name}" th:text="${cat.name}"></option>
+                                        </select> <select id="lev">
+                                        <option value="">난이도 전체</option>
+                                        <option th:each="lv : ${levelOptions}"
+                                                th:value="${lv.code}" th:text="${lv.name}"></option>
+                                    </select> <select id="type">
+                                        <option value="">Type 전체</option>
+                                        <option th:each="t : ${typeOptions}" th:value="${t.code}"
+                                                th:text="${t.name}"></option>
+                                    </select> <input type="text" id="keyword" placeholder="문제 내용 검색" />
+                                        <button id="searchBtn" type="button">검색</button>
+                                    </div>
+                                </div>
+
+                                <table class="solved-table">
+                                    <thead>
+                                    <tr>
+                                        <th>문제 번호</th>
+                                        <th>문제 내용</th>
+                                        <th>카테고리</th>
+                                        <th>Type</th>
+                                        <th>난이도</th>
+                                        <th>포인트</th>
+                                        <th>해결 일자</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="solvedResult">
+                                    <!-- JS로 채움 -->
+                                    </tbody>
+                                </table>
+                                <div class="pagination-wrapper">
+                                    <div class="pagination" id="pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End Col -->
+            </div>
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- ========== section end ========== -->
+
+
+    <!-- ========== footer start =========== -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div
+                            class="terms d-flex justify-content-center justify-content-md-end">
+                        <a href="#0" class="text-sm ml-15">모여봐요 지식의 숲</a>
+                    </div>
+                </div>
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </footer>
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script th:src="@{/js/solvedList.js}"></script>
+</body>
+</html>

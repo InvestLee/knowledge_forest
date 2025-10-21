@@ -1,0 +1,80 @@
+input[readonly],
+select[readonly],
+textarea[readonly] {
+ background-color: #f5f5f5;
+ pointer-events: none;
+}
+.recent-problems {
+  background-color: #fefef9;
+  padding: 16px;
+  border-radius: 12px;
+  border: 2px solid #e3edd8;
+}
+.recent-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  color: #405538;
+}
+.recent-table thead {
+  background-color: #f0f5ea;
+}
+.recent-table th, .recent-table td {
+  padding: 8px;
+  text-align: left;
+  border-bottom: 1px solid #dce7ce;
+}
+.recent-table th {
+  color: #5c6f49;
+  font-weight: 600;
+}
+.pagination .page-link {
+  color: #333;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  margin: 0 2px;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.pagination .page-item.active .page-link {
+  background-color: #b8d8b3;
+  color: #3e4e3f;
+  font-weight: bold;
+}
+
+.pagination .page-link:hover {
+  background-color: #f2f2f2;
+  text-decoration: none;
+}
+
+.custom-tab-buttons {
+  display: flex;
+  background-color: #f6fef6;
+  padding: 10px;
+  border-radius: 8px;
+  justify-content: space-around;
+}
+
+.custom-tab-button {
+  background-color: transparent;
+  border: none;
+  color: #137c2d;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.custom-tab-button.active {
+  background-color: #137c2d;
+  color: white;
+}
+
+.custom-tab-button:hover {
+  background-color: #dee2e6;
+  color: white;
+}

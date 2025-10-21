@@ -1,0 +1,29 @@
+<header class="header">
+    <div class="container-fluid-header">
+        <div class="row">
+
+            <div class="col-lg-5 col-md-5 col-6">
+                <div class="header-left d-flex align-items-center">
+                    <div class="menu-toggle-btn mr-15">
+                        <button id="menu-toggle" class="main-btn primary-btn btn-hover">
+                            <i class="lni lni-chevron-left me-2"></i> Menu
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-7 col-md-7 col-6">
+                <div class="header-right">
+                    <div class="profile-box ml-15">
+                        <div class="profile-info">
+                            <h5 th:text="${userInfo.name}" class="mb-0 fw-bold"></h5>
+                            <h6 class="mb-0">현재 포인트 : <span th:text="${userInfo.points}"></span></h6>
+                        </div>
+                    </div>
+                    <a th:href="@{/logout}"> <i class="lni lni-exit"></i> Log Out </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</header>

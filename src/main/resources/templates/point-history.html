@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" href="/images/favicon.svg" type="image/x-icon" />
+    <title>모여봐요 지식의 숲</title>
+
+    <!-- ========== All CSS files linkup ========= -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/lineicons.css" type="text/css" />
+    <link rel="stylesheet" href="/css/materialdesignicons.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/fullcalendar.css" />
+    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href="/css/animal.css" />
+    <link rel="stylesheet" href="/css/quiz.css" />
+</head>
+
+<body>
+<div th:replace="fragments/sidebar :: sidebar"></div>
+<div class="overlay"></div>
+
+<!-- ======== main-wrapper start =========== -->
+<main class="main-wrapper">
+
+    <div th:replace="fragments/header :: header"></div>
+
+
+
+
+    <!-- ========= All Javascript files linkup ======== -->
+    <script src="/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/Chart.min.js"></script>
+    <script src="/js/dynamic-pie-chart.js"></script>
+    <script src="/js/moment.min.js"></script>
+    <script src="/js/fullcalendar.js"></script>
+    <script src="/js/jvectormap.min.js"></script>
+    <script src="/js/world-merc.js"></script>
+    <script src="/js/polyfill.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/jquery-1.11.3.min.js"></script>
+
+
+    <!-- ========== section start ========== -->
+    <section class="section">
+        <div class="container-fluid">
+            <div class="card-style mb-30">
+                <!-- ========== title-wrapper start ========== -->
+                <script>
+                    $(function() {
+                        // 최초 로딩 시 초기 페이지 호출
+                        $('#point-history-section').load('/mypage/point-history-list?page=0');
+
+                        $(document)
+                        .off('click', '.point-history-page-link')
+                        .on('click', '.point-history-page-link', function(e) {
+                            e.preventDefault();
+                            const page = $(this).data('page');
+                            $('#point-history-section').load('/mypage/point-history-list?page=' + page);
+                          });
+                      });
+                </script>
+                <!-- ========== title-wrapper end ========== -->
+            </div>
+            <div class="col-lg-6" id="point-history-section"></div>
+            <div th:replace="fragments/footer :: footer"></div>
+
+
+</body>
+</html>

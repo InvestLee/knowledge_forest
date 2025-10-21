@@ -1,0 +1,21 @@
+body.bg-pattern {
+  background: #f0f8e6;
+  font-family: 'Arial', sans-serif;
+}
+
+.title {
+  color: #4caf50;
+  font-size: 2.5rem;
+}
+
+.btn-leaf {
+  background-color: #aed581;
+  color: #2e7d32;
+  border-radius: 20px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.btn-leaf:hover {
+  background-color: #81c784;
+}

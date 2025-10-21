@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<?page language="java" contentType="text/html; charset=UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "mybatis-3-mapper.dtd">
+
+<mapper namespace="com.lit.knowledgeforest.mapper.QuestionMapper">
+    <select id="getTodayQuizByEno" parameterType="java.util.HashMap" resultType="com.lit.knowledgeforest.dto.RecentSolvedResponse">
+        SELECT *
+        FROM (
+        SELECT Q.*, ROWNUM AS RN
+        FROM (
+        SELECT *
+        FROM QZ_TB_QUESTION Q
+        WHERE NOT EXISTS (
+        SELECT 1
+        FROM QZ_TB_HISTORY H
+        WHERE H.ENO = #{eno}
+        AND TO_CHAR(H.FST_CRT_DTTI, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+        )
+        ORDER BY Q.QUESTION_NO
+        ) Q
+        WHERE ROWNUM <![CDATA[<=]]> #{limit}
+        )
+        WHERE RN = #{limit}
+    </select>
+
+    <!-- 미해결 문제 개수 -->
+    <select id="countUnsolvedQuestions" parameterType="String" resultType="int">
+        SELECT COUNT(*)
+        FROM QZ_TB_QUESTION Q
+        WHERE NOT EXISTS (
+        SELECT 1
+        FROM QZ_TB_HISTORY H
+        WHERE H.ENO = #{eno}
+        AND TO_CHAR(H.FST_CRT_DTTI, 'YYYYMMDD') = TO_CHAR(SYSDATE, 'YYYYMMDD')
+        )
+    </select>
+</mapper>

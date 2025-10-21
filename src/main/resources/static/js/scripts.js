@@ -1,0 +1,1 @@
+console.log('Animal Crossing 스타일 테마 시작됨');

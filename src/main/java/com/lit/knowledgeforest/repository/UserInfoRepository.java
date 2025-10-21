@@ -47,19 +47,20 @@ public interface UserInfoRepository extends JpaRepository<UserInfoEntity, String
     //nativeQuery 단건 조회 시 Object[]에서 Object로 변경되는 버그 발생하여 List 형태로 추출
     @Query(
             value = """
- SELECT MAX(A.rank) as rank
-      , A.eno as eno
-      , MAX(A.points) as points
-      , COUNT(B.eno) as solvedCount
- FROM QZ_TB_HISTORY B
-    , (
+ SELECT NVL(MAX(A.rank), 0) as rank
+      , NVL(A.eno, :eno) as eno
+      , NVL(MAX(A.points), 0) as points
+      , NVL(COUNT(B.eno), 0) as solvedCount
+ FROM (
       SELECT RANK() OVER (ORDER BY POINTS DESC) AS rank
           , ENO AS eno
       , POINTS AS points
          FROM QZ_TB_USER_INFO
     ) A
+   LEFT JOIN QZ_TB_HISTORY B
+   ON A.ENO = B.ENO
+   AND B.CORRECT_YN = :correctYn
   WHERE A.eno = :eno
-    AND B.CORRECT_YN = :correctYn
   GROUP BY A.eno
  """,
             nativeQuery = true

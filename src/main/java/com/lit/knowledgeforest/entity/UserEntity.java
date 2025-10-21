@@ -4,10 +4,7 @@ import java.time.LocalDateTime;
 
 import com.lit.knowledgeforest.entity.primarykey.UserPK;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -24,6 +21,10 @@ import lombok.experimental.SuperBuilder;
 public class UserEntity extends BaseEntity{
 
     @EmbeddedId
+    @AttributeOverrides({
+            @AttributeOverride(name = "eno",  column = @Column(name = "ENO")),
+            @AttributeOverride(name = "vlYn", column = @Column(name = "VL_YN"))
+    })
     private UserPK pk;
 
     @Column(name = "LD_EMP_C")
